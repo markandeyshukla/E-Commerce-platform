@@ -44,6 +44,7 @@ function Header() {
                     <Link to='/' className='header-font-design'>
                         <HiOutlineShoppingCart /> cart
                     </Link>
+                    <Link to='/aboutus'  className='header-font-design'>About us</Link>
                     <Link to='/' className='header-font-design'>
                         <FaShop /> Become A Seller
                     </Link>
