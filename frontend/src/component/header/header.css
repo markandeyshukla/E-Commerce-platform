@@ -5,7 +5,7 @@
 .main-div-header{
      height: 50px;
      width: 100%;
-     background-color: blue;
+     background-color: white;
      display: flex; 
      /* justify-content: space-between; */
      flex-direction: row;
@@ -18,7 +18,7 @@
     margin: 0 auto;
 }
 .header-font-design{
-        color: white;
+        color: black;
         font-size: 20px;
         align-self: end;
         text-decoration: none;
@@ -31,6 +31,7 @@
     align-items: center;
 }
 .search-input{
+    background-color: whitesmoke;
     padding: 5px;
      height: 30px;
      width: 350px;
@@ -40,7 +41,7 @@
     height: 40px;
     width: 40px;
     padding: 5px;
-    background-color: white;
+    background-color: whitesmoke;
     border: none;
 }
 .search-btn-img{

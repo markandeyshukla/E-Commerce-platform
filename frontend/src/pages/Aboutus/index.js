@@ -1,10 +1,12 @@
-import Aboutus from "../../component/about us/Aboutus";
-import Header from "../../component/homepage/Header";
+import Aboutus from "../../component/aboutus/Aboutus";
+import Header from "../../component/header/Header";
+import Footer from "../../component/footer/Footer";
 function About(){
    return(
      <>
     <Header/>
     <Aboutus/>
+    <Footer/>
     </>
    )
 }
