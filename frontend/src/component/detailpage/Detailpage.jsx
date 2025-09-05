@@ -8,12 +8,14 @@ function Detailpage(){
             <div className='detailpage-img-div'>
                 
                     <img src={Download} alt="" className='detailpage-img'/>
+                    <h2 className='name-product-detailpage'>Hydrogen</h2>
                     <button className='detailpage-buy-btn'>Add to Cart</button>
                    <Link to='/payment'> <button className='detailpage-buy-btn'>Buy Product Name</button></Link>
                 
             </div>
             <div className='detailpage-feature-div'>
-                <h2 className='name-product-detailpage'>Hydrogen</h2>
+             <div className='detailpage-inside-div'>
+                   <h2 className='name-product-detailpage'>Hydrogen</h2>
                 <p><strong>Quantity:</strong>1L</p>
                 <p><strong>size:</strong> xs,xl,xxl,xxxl</p>
                 <p><strong>color:</strong> Red,Pink,Black </p>
@@ -23,6 +25,7 @@ function Detailpage(){
                 <p><strong>warranty:</strong>6 months</p>
                 <p><strong>return policy:</strong>7 days</p>
                 <p><strong>description:</strong>a product that i dontknow what is</p>
+             </div>
             </div>
         </div>
         </>

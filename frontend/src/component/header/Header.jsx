@@ -63,6 +63,56 @@ function Header() {
 
 
             </div>
+
+            <div className='main-div-header' id='mobile-view-navbar'>
+
+                <div className='header-feature-div'>
+                    <Link to='/' className='header-font-design'>
+                        <h3>Your<span>Mart</span></h3>
+                    </Link>
+                  
+                    <div id='login-div' className='header-font-design'>
+                        <Link to='/sellersignup' className='header-font-design'>
+                        <FaShop />
+                    </Link>
+                        <Link to='/cart' className='header-font-design'>
+                        <HiOutlineShoppingCart />
+                    </Link>
+                    {/* <Link to='/aboutus'  className='header-font-design'>About us</Link> */}
+                    
+                    
+                        <GiCharacter className='header-font-design'/> 
+                        {/* or logi ki jgh username profile ke age likh dena login phir tablet mein bs icon or phone mien chota icon hover mein wishlist login signup if token not saved redirect to login. */}
+                    
+                    <div className='hover-div-main'>
+                        <div>
+                            <ul className='display-div'>
+                                <li><Link to='/wishlist'>wishlist</Link></li>
+                                <li><Link to='/login'>Login</Link></li>
+                                <li><Link to='/signup'>Signup</Link></li>
+                                <li>Logout</li>
+                                <li><Link to='/support'>contact</Link></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    
+                    </div>
+                </div>
+                  <div className='header-search'>
+                                    
+                        <form onSubmit={handleSubmit} className='header-form'>
+                            <input type="text" placeholder='search product' onChange={(e) => setSearch(e.target.value)} className='search-input' />
+                            <button type='submit' id='search' className='search-btn'><HiOutlineSearch className='search-btn-img' /></button>
+                        </form>
+
+                    </div>
+                <div className='header-font-design' id='headers-font-design'>
+                        deliver to person name adress
+                    </div>
+
+
+            </div>
         </>
     )
 }

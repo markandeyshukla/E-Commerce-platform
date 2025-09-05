@@ -31,7 +31,7 @@ function Banner() {
     <Slider {...settings}>
       {images.map((img, index) => (
         <div key={index}>
-          <img src={img} alt="banner" style={{ width: '100%', height: '300px', objectFit: 'cover' }} />
+          <img src={img} alt="banner" className="banner-img"/>
         </div>
       ))}
     </Slider>
