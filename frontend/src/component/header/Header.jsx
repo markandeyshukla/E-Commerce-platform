@@ -2,9 +2,20 @@ import './header.css';
 import { HiOutlineShoppingCart } from "react-icons/hi2";
 import { GiCharacter } from "react-icons/gi";
 import { FaShop } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiOutlineSearch } from "react-icons/hi";
+import { useState } from 'react';
 function Header() {
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    if (search.trim() !== "") {
+      navigate('/search'); 
+    }
+  };
+
     return (
         <>
             <div className='main-div-header'>
@@ -17,10 +28,10 @@ function Header() {
                         <span>deliver to person name adress</span>
                     </Link>
                     <div className='header-search'>
-
-                        <form action="submit" className='header-form'>
-                            <input type="text" placeholder='search product' className='search-input' />
-                            <button type='submit' className='search-btn'><HiOutlineSearch className='search-btn-img' /></button>
+                                    
+                        <form onSubmit={handleSubmit} className='header-form'>
+                            <input type="text" placeholder='search product' onChange={(e) => setSearch(e.target.value)} className='search-input' />
+                            <button type='submit' id='search' className='search-btn'><HiOutlineSearch className='search-btn-img' /></button>
                         </form>
 
                     </div>
@@ -32,20 +43,20 @@ function Header() {
                     <div className='hover-div-main'>
                         <div>
                             <ul className='display-div'>
-                                <li>wishlist</li>
+                                <li><Link to='/wishlist'>wishlist</Link></li>
                                 <li><Link to='/login'>Login</Link></li>
                                 <li><Link to='/signup'>Signup</Link></li>
                                 <li>Logout</li>
-                                <li>List Product <Link to='/support'>contact</Link></li>
+                                <li><Link to='/support'>contact</Link></li>
                             </ul>
                         </div>
                     </div>
                     </div>
-                    <Link to='/' className='header-font-design'>
+                    <Link to='/cart' className='header-font-design'>
                         <HiOutlineShoppingCart /> cart
                     </Link>
                     {/* <Link to='/aboutus'  className='header-font-design'>About us</Link> */}
-                    <Link to='/' className='header-font-design'>
+                    <Link to='/sellersignup' className='header-font-design'>
                         <FaShop /> Become A Seller
                     </Link>
                 </div>

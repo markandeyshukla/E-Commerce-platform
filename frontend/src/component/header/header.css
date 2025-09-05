@@ -49,6 +49,7 @@
     width: 20px;
 }
 .hover-div-main{
+    z-index: 1;
     background-color: aliceblue; 
     position: absolute;
     top: 49px;

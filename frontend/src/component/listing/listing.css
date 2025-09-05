@@ -1,0 +1,70 @@
+.upload-car-main {
+   width: auto;
+   margin: 0 auto;
+   align-items: center;
+   display: flex;
+   flex-direction: column;
+}
+
+.imgpreview-upload-car {
+   height: 120px;
+   background-size: contain;
+   width: 160px;
+}
+
+.Upload-car-form {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 15px;
+   margin: 30px auto;
+   padding: 30px;
+   background: beige;
+   border-radius: 10px;
+}
+
+.upload-car-form-detail {
+   height: 40px;
+   width: 100%;
+   border: 2px blue solid;
+   border-radius: 10px;
+}
+
+.upload-car-radio {
+   display: inline-grid;
+   width: 20px;
+   margin-bottom: 10px;
+}
+
+.upload-car-form-detail-btn {
+   height: 40px;
+   width: 300px;
+   border: none;
+   background-color: lightgreen;
+   transition: all 0.2s ease-in-out;
+   cursor: pointer;
+}
+
+.upload-car-form-detail-btn:active {
+   background-color: green;
+   transform: scale(0.9);
+}
+.heading1{
+    text-align: center;
+}
+.upload-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-btn:hover {
+  background-color: #0056b3;
+}
+#imgUploadInput{
+    display: none;
+}
