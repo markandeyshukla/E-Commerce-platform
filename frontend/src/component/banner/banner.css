@@ -30,7 +30,11 @@
   /* z-index: 1; */
   color: black !important;
 }
-
+@media(max-width:768px){
+.slick-slider{
+    margin-top: 80px;
+}
+}
 @media(max-width:460px){
 .slick-slider{
     margin-top: 50px;

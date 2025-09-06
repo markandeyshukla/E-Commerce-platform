@@ -13,7 +13,7 @@ function Footer() {
                 <div className='footer-conrtaindiv'>
                 <div className="contact-detail">
                     <p className="contact-details">Contact</p>
-                    <p className='tast'><TbBrandGmail className="image"/>help@couponbarter.com</p>
+                    <p className='tast'><TbBrandGmail className="image"/>email@gmail.com</p>
                     <p className='tast'><FaPhoneVolume className='image' />0542-4595674</p>
                 <div className='footer-social'>
                 <p><BsInstagram  className="footer-socials" /></p>
@@ -26,11 +26,15 @@ function Footer() {
                     <p className='pp'>Get in Touch with Us!</p>
                     <p><Link className='test' to='/support'>Support</Link></p>
                     <p><Link className='test' to='/aboutus'>About Us</Link></p>
-                    <p><Link className='test' to='/listing'>Sell-Coupon</Link></p>
+                    <p><Link className='test' to='/listing'>Become a Merchant</Link></p>
                     <p><Link className='test' to='/wishlist'>Wishlist</Link></p>
                     <p><Link className='test' to='/landing'>Home</Link></p>
                 </div>
+                
             </div>
+            <div style={{backgroundColor:'black', height:'10px'}}><hr /><hr /></div>
+            <div style={{backgroundColor:'black', height:'10px'}}></div>
+            <div style={{backgroundColor:'black', height:'10px'}}><hr /><hr /></div>
         </>
     );
 }

@@ -1,3 +1,4 @@
+import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
 import Wishlist from "../../component/wishlist/Wishlist";
 
@@ -6,6 +7,7 @@ function Wishlistpage(){
         <>
         <Header/>
         <Wishlist/>
+        <Footer/>
         </>
     )
 }

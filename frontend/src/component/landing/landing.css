@@ -91,6 +91,7 @@
     font-size: 15px;
     color: #444;
     overflow: hidden;
+    text-align: start;
 }
 
 .extrasize p {
@@ -153,7 +154,6 @@
     }
 
     .extrasize {
-        text-align: start;
         font-size: 11px;
         padding: 5px;
         margin: 5px 0;

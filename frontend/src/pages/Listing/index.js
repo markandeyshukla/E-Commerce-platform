@@ -5,7 +5,7 @@ function Listingpage(){
         <>
         <Header/>
         <Listing/>
-        
+        <Footer/>
         </>
     )
 }

@@ -1,3 +1,4 @@
+import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
 import Search from "../../component/search/Search";
 function Searchpage(){
@@ -5,6 +6,7 @@ function Searchpage(){
         <>
         <Header/>
         <Search/>
+        <Footer/>
         </>
     )
 }

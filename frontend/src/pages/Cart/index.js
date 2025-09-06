@@ -1,4 +1,5 @@
 import Cart from "../../component/cart/Cart";
+import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
 
 function Cartpage(){
@@ -6,6 +7,7 @@ function Cartpage(){
         <>
         <Header/>
         <Cart/>
+        <Footer/>
         </>
     )
 }

@@ -18,7 +18,7 @@ function Header() {
 
     return (
         <>
-            <div className='main-div-header'>
+                      <div className='main-div-header'>
 
                 <div className='header-feature-div'>
                     <Link to='/' className='header-font-design'>
@@ -37,7 +37,7 @@ function Header() {
                     </div>
                     <div id='login-div' className='header-font-design'>
                     <Link to='/Login' className='header-font-design'>
-                        <GiCharacter /> Login
+                        <GiCharacter className='size-icon show-header-name'/> <p className='text'> Login</p>
                         {/* or logi ki jgh username profile ke age likh dena login phir tablet mein bs icon or phone mien chota icon hover mein wishlist login signup if token not saved redirect to login. */}
                     </Link>
                     <div className='hover-div-main'>
@@ -52,18 +52,19 @@ function Header() {
                         </div>
                     </div>
                     </div>
-                    <Link to='/cart' className='header-font-design'>
-                        <HiOutlineShoppingCart /> cart
+                    <Link to='/cart' className='header-font-design show-header-name'>
+                        <HiOutlineShoppingCart className='size-icon'/> <p className='text'> Cart </p>
                     </Link>
                     {/* <Link to='/aboutus'  className='header-font-design'>About us</Link> */}
-                    <Link to='/sellersignup' className='header-font-design'>
-                        <FaShop /> Become A Seller
+                    <Link to='/sellersignup' className='header-font-design show-header-name'>
+                        <FaShop className='size-icon'/> <p className='text'>Become A Seller</p>
                     </Link>
                 </div>
 
 
             </div>
 
+{/* mobile/tablet view */}
             <div className='main-div-header' id='mobile-view-navbar'>
 
                 <div className='header-feature-div'>
@@ -73,25 +74,25 @@ function Header() {
                   
                     <div id='login-div' className='header-font-design'>
                         <Link to='/sellersignup' className='header-font-design'>
-                        <FaShop />
+                        <FaShop className='size-icon' />
                     </Link>
                         <Link to='/cart' className='header-font-design'>
-                        <HiOutlineShoppingCart />
+                        <HiOutlineShoppingCart className='size-icon' />
                     </Link>
                     {/* <Link to='/aboutus'  className='header-font-design'>About us</Link> */}
                     
                     
-                        <GiCharacter className='header-font-design'/> 
+                        <GiCharacter className='header-font-design size-icon'/> 
                         {/* or logi ki jgh username profile ke age likh dena login phir tablet mein bs icon or phone mien chota icon hover mein wishlist login signup if token not saved redirect to login. */}
                     
                     <div className='hover-div-main'>
                         <div>
                             <ul className='display-div'>
-                                <li><Link to='/wishlist'>wishlist</Link></li>
-                                <li><Link to='/login'>Login</Link></li>
-                                <li><Link to='/signup'>Signup</Link></li>
+                                <li><Link to='/wishlist' className='textdecoration-header' >wishlist</Link></li>
+                                <li><Link to='/login' className='textdecoration-header'>Login</Link></li>
+                                <li><Link className='textdecoration-header' to='/signup'>Signup</Link></li>
                                 <li>Logout</li>
-                                <li><Link to='/support'>contact</Link></li>
+                                <li><Link to='/support' className='textdecoration-header'>contact</Link></li>
                             </ul>
                         </div>
                     </div>

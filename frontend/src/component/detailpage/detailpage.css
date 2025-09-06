@@ -51,15 +51,30 @@ background-color: #2874f0;
 }
 .detailpage-inside-div{
     display: flex;
-    flex: 2 1;
+    /* flex: 2 1; */
     flex-direction: column;
     gap: 10px;
     margin: 0 auto;
     width: 70%;
 }
+@media (min-width:461px) and (max-width:768px){
+    .detailpage-main-div{
+        flex-direction: column;
+    }
+.detailpage-feature-div p{
+    display: flex;
+    justify-content: space-between;
+}
+.detailpage-img-div{
+    margin-top: 40px;
+}
+}
 @media(max-width:460px){
     .detailpage-main-div{
         flex-direction: column;
+    }
+    .detailpage-inside-div{
+    flex: 2 1;
     }
 .detailpage-feature-div p{
     display: flex;
