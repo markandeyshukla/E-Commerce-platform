@@ -336,5 +336,7 @@
         text-decoration: none;
         font-size: 10px;
     }
-
+    .footer-social{
+        gap: 3px;
+    }
 }

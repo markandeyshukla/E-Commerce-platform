@@ -36,16 +36,16 @@ function Header() {
 
                     </div>
                     <div id='login-div' className='header-font-design'>
-                    <Link to='/Login' className='header-font-design'>
+                    {/* <Link to='/Login' className='header-font-design'> */}
                         <GiCharacter className='size-icon show-header-name'/> <p className='text'> Login</p>
                         {/* or logi ki jgh username profile ke age likh dena login phir tablet mein bs icon or phone mien chota icon hover mein wishlist login signup if token not saved redirect to login. */}
-                    </Link>
+                    {/* </Link> */}
                     <div className='hover-div-main'>
                         <div>
                             <ul className='display-div'>
                                 <li><Link to='/wishlist'>wishlist</Link></li>
                                 <li><Link to='/login'>Login</Link></li>
-                                <li><Link to='/signup'>Signup</Link></li>
+                                <li><Link to='/phone'>Signup</Link></li>
                                 <li>Logout</li>
                                 <li><Link to='/support'>contact</Link></li>
                             </ul>

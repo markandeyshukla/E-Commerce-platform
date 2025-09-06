@@ -11,6 +11,10 @@ import SellerDashboard from './pages/Sellerdashboard/index.js';
 import Listingpage from './pages/Listing/index.js';
 import Wishlistpage from './pages/Wishlist/index.js';
 import Cartpage from './pages/Cart/index.js';
+import Supportpage from './pages/Support/index.js';
+import Loginpage from './pages/Login/index.js';
+import SignupphonePage from './pages/Signupphone/index.js';
+import Signupemailpage from './pages/Signupemail/index.js';
 const AppRouter =() =>{
     return(
         <Router>
@@ -26,6 +30,10 @@ const AppRouter =() =>{
                 <Route path='/listing' element={<Listingpage/>}/>
                 <Route path='/wishlist' element={<Wishlistpage/>}/>
                 <Route path='/cart' element={<Cartpage/>}/>
+                <Route path='/support' element={<Supportpage/>}/>
+                <Route path='/login' element={<Loginpage/>}/>
+                <Route path='/phone' element={<SignupphonePage/>}/>
+                <Route path='/email' element={<Signupemailpage/>}/>
             </Routes>
         </Router>
     );

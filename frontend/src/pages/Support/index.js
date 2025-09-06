@@ -1,13 +1,14 @@
 import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
-import Listing from "../../component/listing/Listing";
-function Listingpage(){
+import Support from "../../component/support/Support";
+
+function supportpage(){
     return(
         <>
         <Header/>
-        <Listing/>
+        <Support/>
         <Footer/>
         </>
     )
 }
-export default Listingpage;
+export default supportpage;

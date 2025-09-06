@@ -1,13 +1,14 @@
 import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
-import Listing from "../../component/listing/Listing";
-function Listingpage(){
+import Login from "../../component/login/Login";
+
+function Loginpage(){
     return(
         <>
         <Header/>
-        <Listing/>
+        <Login/>
         <Footer/>
         </>
     )
 }
-export default Listingpage;
+export default Loginpage;

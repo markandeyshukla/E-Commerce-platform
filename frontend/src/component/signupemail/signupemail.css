@@ -1,0 +1,61 @@
+
+.main-div-signupemail{
+    height: 90vh;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.img-signupemail{
+    border-radius: 5px 0 0 5px ;
+background:url(download.jpg);
+height: 400px;
+width:40%;
+background-size: 100% 100%;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.signupemail-details{
+    border-radius: 0 5px 5px 0;
+    height: 400px;
+width: 60%;
+background-color: aliceblue;
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 15px;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.form-signupemail{
+display: flex;
+flex-direction: column;
+gap: 15px;
+align-items: center;
+width: 100%;
+}
+.input-detail-signupemail{
+  padding: 10px;
+  border: none;
+  height: 30px;
+  width: 70%;
+  border-bottom: 2px solid red;
+}
+.input-detail-signupemail-btn{
+  padding: 5px;
+  border: none;
+  background-color: aqua;
+  height: 35px;
+  width: 70%;
+}
+ .google-signupemail{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.google-signupemail-btn{
+  background-color: white;
+  padding: 10px;
+  width: 25%;
+  border: 1px solid orangered;
+  font-size: 18px;
+}

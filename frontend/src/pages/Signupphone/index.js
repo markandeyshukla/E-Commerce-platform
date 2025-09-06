@@ -1,13 +1,14 @@
 import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
-import Listing from "../../component/listing/Listing";
-function Listingpage(){
+import Signupphone from "../../component/signupphone/Signupphone";
+
+function SignupphonePage(){
     return(
         <>
         <Header/>
-        <Listing/>
+        <Signupphone/>
         <Footer/>
         </>
     )
 }
-export default Listingpage;
+export default SignupphonePage;

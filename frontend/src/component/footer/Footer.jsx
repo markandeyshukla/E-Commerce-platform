@@ -26,9 +26,9 @@ function Footer() {
                     <p className='pp'>Get in Touch with Us!</p>
                     <p><Link className='test' to='/support'>Support</Link></p>
                     <p><Link className='test' to='/aboutus'>About Us</Link></p>
-                    <p><Link className='test' to='/listing'>Become a Merchant</Link></p>
+                    <p><Link className='test' to='/sellersignup'>Become a Merchant</Link></p>
                     <p><Link className='test' to='/wishlist'>Wishlist</Link></p>
-                    <p><Link className='test' to='/landing'>Home</Link></p>
+                    <p><Link className='test' to='/'>Home</Link></p>
                 </div>
                 
             </div>

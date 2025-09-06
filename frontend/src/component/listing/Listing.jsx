@@ -4,7 +4,7 @@ function Listing() {
     return (
         <>
 
-            <h1 className="heading1">YourMart Listing Page</h1>
+            <h1 className="heading1">ViaMart Listing Page</h1>
 
             <div className="upload-car-main">
                 <form action="#" className="Upload-car-form" id="uploadcar">
