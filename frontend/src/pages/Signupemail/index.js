@@ -1,5 +1,5 @@
+import Footer from "../../component/footer/Footer";
 import Header from "../../component/header/Header";
-import Login from "../../component/login/Login";
 import Signupemail from "../../component/signupemail/Signupemail";
 
 function Signupemailpage(){
@@ -7,7 +7,7 @@ function Signupemailpage(){
         <>
         <Header/>
         <Signupemail/>
-        <Login/>
+        <Footer/>
         </>
     )
 }

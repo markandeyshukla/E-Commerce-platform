@@ -13,22 +13,25 @@
 }
 
 .Upload-car-form {
+   width: 60%;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    gap: 15px;
    margin: 30px auto;
-   padding: 30px;
-   background: beige;
+   padding: 9px;
+   background: white;
+   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
    border-radius: 10px;
 }
 
 .upload-car-form-detail {
-   height: 40px;
-   width: 100%;
-   border: 2px blue solid;
-   border-radius: 10px;
+   height: 35px;
+   width: 90%;
+   /* border-radius: 10px; */
+   border: none;
+   border-bottom: 2px blue solid;
 }
 
 .upload-car-radio {
@@ -39,7 +42,7 @@
 
 .upload-car-form-detail-btn {
    height: 40px;
-   width: 300px;
+   width: 90%;
    border: none;
    background-color: lightgreen;
    transition: all 0.2s ease-in-out;
@@ -52,6 +55,7 @@
 }
 .heading1{
     text-align: center;
+    margin: 10px;
 }
 .upload-btn {
   display: inline-block;
@@ -67,4 +71,8 @@
 }
 /* #imgUploadInput{
     display: none;
-} */
+} */@media(max-width:480px){
+   .Upload-car-form{
+      width: 90%;
+   }
+}

@@ -1,37 +1,53 @@
-
-
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import download from './download.jpg';
 import './Sellerdashboard.css';
+
 function Sellerdashboard() {
     return (
-        <>
-            <div className="product-main-div-sellerdashboard">
-                <div className="product-div-sellerdashboard">
-                    <Link to='/detail'>
-                        <div className="product-img-div-sellerdashboard"><img src={download} alt="product name" className="product-img-sellerdashboard" />
-                            <span className="overlay-wishlist-sellerdashboard"><AiOutlineDelete /></span></div>
-                        <div className="product-name-price-cart-div-sellerdashboard"><h4 className="product-name-sellerdashboard">name</h4><p className="product-price-sellerdashboard">price</p><span className="product-cart-div-sellerdashboard"><FiEdit className="product-cart-sellerdashboard" /> </span></div>
+        <div className="product-main-div-sellerdashboard">
+            <div className="product-div-sellerdashboard">
 
-                        <div className="extrasize-sellerdashboard"><p>
-                            <strong>size:</strong> <br />
-                            <strong>color:</strong> <br />
-                            itna sara likh diye hai vo sb bhi whi atega kya apne se nhi likhegadetail of roduct only two line will show mor ethan this will go to detail page you need to increase the size of the page</p></div>
-                    </Link>
-                    <Link to='/payment'><button className="product-buy-btn-sellerdashboard">Buy price</button></Link>
-
+                {/* Product Image with Delete Icon */}
+                <div className="product-img-div-sellerdashboard">
+                    <img src={download} alt="product name" className="product-img-sellerdashboard" />
+                    <span className="overlay-delete-sellerdashboard">
+                        <AiOutlineDelete />
+                    </span>
                 </div>
 
-                <Link to='/listing'><div className="upload-car-booking-sellerdashboard" id="upload">
+                {/* Product Info */}
+                <div className="product-info-sellerdashboard">
+                    <h4 className="product-name-sellerdashboard">Product Name</h4>
+                    <p className="product-price-sellerdashboard">₹ 1200</p>
+                    <p className="product-extra-sellerdashboard">
+                        <strong>Size:</strong> M <br />
+                        <strong>Color:</strong> Blue
+                    </p>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="product-actions-sellerdashboard">
+                    <Link to="/detail">
+                        <button className="view-btn-sellerdashboard">View</button>
+                    </Link>
+                    <button className="edit-btn-sellerdashboard">
+                        <FiEdit /> Edit
+                    </button>
+                </div>
+            </div>
+         <Link to='/listing'><div className="upload-car-booking-sellerdashboard" id="upload">
                     <img className="img-upload-sellerdashboard" src="https://cdn-icons-png.flaticon.com/512/5173/5173034.png" alt=""/>
                         <div className="subupload-car-booking-sellerdashboard">
                             <h3>List your Product</h3>
                         </div>
                 </div></Link>
-            </div>
-        </>
+        </div>
+        
     )
 }
+
 export default Sellerdashboard;
+
+

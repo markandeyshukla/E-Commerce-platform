@@ -22,7 +22,7 @@ function Header() {
 
                 <div className='header-feature-div'>
                     <Link to='/' className='header-font-design'>
-                        <h1>Your<span>Mart</span></h1>
+                        <h1>Your<span style={{color:'blue'}}>Mart</span></h1>
                     </Link>
                     <Link to='/' className='header-font-design'>
                         <span>deliver to person name adress</span>
@@ -65,11 +65,11 @@ function Header() {
             </div>
 
 {/* mobile/tablet view */}
-            <div className='main-div-header' id='mobile-view-navbar'>
+            <div id='mobile-view-navbar'>
 
                 <div className='header-feature-div'>
                     <Link to='/' className='header-font-design'>
-                        <h3>Your<span>Mart</span></h3>
+                        <h3>Your<span style={{color:'blue'}}>Mart</span></h3>
                     </Link>
                   
                     <div id='login-div' className='header-font-design'>
@@ -90,7 +90,7 @@ function Header() {
                             <ul className='display-div'>
                                 <li><Link to='/wishlist' className='textdecoration-header' >wishlist</Link></li>
                                 <li><Link to='/login' className='textdecoration-header'>Login</Link></li>
-                                <li><Link className='textdecoration-header' to='/signup'>Signup</Link></li>
+                                <li><Link className='textdecoration-header' to='/phone'>Signup</Link></li>
                                 <li>Logout</li>
                                 <li><Link to='/support' className='textdecoration-header'>contact</Link></li>
                             </ul>

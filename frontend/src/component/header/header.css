@@ -10,6 +10,8 @@ a{
      width: 100%;
      background-color: white;
      display: flex; 
+     /* background-color: aliceblue; */
+     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
      /* justify-content: space-between; */
      flex-direction: row;
 }
@@ -97,6 +99,7 @@ a{
     #mobile-view-navbar{
         display: flex;
         flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     }
     .search-input{
         width: 100%;
@@ -137,6 +140,7 @@ width: 90%;    }
     #mobile-view-navbar{
         display: flex;
         flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     }
     .search-input{
         width: 100%;
