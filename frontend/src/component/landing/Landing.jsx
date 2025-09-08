@@ -40,7 +40,7 @@ function Landing() {
   <div className="product-main-div-landing">
     <div className="product-card-landing">
       <div className="product-img-wrapper-landing">
-        <img src={download} alt="product name" className="product-img-landing" />
+        <Link to='/detail'><img src={download} alt="product name" className="product-img-landing" /></Link>
         <span className="wishlist-icon-landing">
           <IoHeartOutline className="heart-outline-landing" />
           <IoHeartSharp className="heart-filled-landing" />
@@ -51,46 +51,21 @@ function Landing() {
         <h4 className="product-name-landing">Stylish T-Shirt</h4>
         <p className="product-price-landing">₹499</p>
 
-        <p className="product-desc-landing">
+       <Link to='/detail'><p className="product-desc-landing">
           <strong>Size:</strong> M, L, XL <br />
           <strong>Color:</strong> Red, Blue <br />
           A comfortable cotton T-shirt for daily wear...
-        </p>
+        </p></Link>
 
         <div className="product-actions-landing">
           <button className="cart-btn-landing"><MdAddShoppingCart /></button>
-          <Link to="/payment-landing">
-            <button className="buy-btn-landing">Buy Now</button>
-          </Link>
-        </div>
-      </div>
-     </div> <div className="product-card-landing">
-      <div className="product-img-wrapper-landing">
-        <img src={download} alt="product name" className="product-img-landing" />
-        <span className="wishlist-icon-landing">
-          <IoHeartOutline className="heart-outline-landing" />
-          <IoHeartSharp className="heart-filled-landing" />
-        </span>
-      </div>
-
-      <div className="product-info-landing">
-        <h4 className="product-name-landing">Stylish T-Shirt</h4>
-        <p className="product-price-landing">₹499</p>
-
-        <p className="product-desc-landing">
-          <strong>Size:</strong> M, L, XL <br />
-          <strong>Color:</strong> Red, Blue <br />
-          A comfortable cotton T-shirt for daily wear...
-        </p>
-
-        <div className="product-actions-landing">
-        <button className="cart-btn-landing"><MdAddShoppingCart /></button>
           <Link to="/payment">
             <button className="buy-btn-landing">Buy Now</button>
           </Link>
         </div>
       </div>
-     </div> </div>
+     </div>         </div>
+      
   );
 }
 

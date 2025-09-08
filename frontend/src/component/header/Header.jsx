@@ -22,7 +22,7 @@ function Header() {
 
                 <div className='header-feature-div'>
                     <Link to='/' className='header-font-design'>
-                        <h1>Your<span style={{color:'blue'}}>Mart</span></h1>
+                        <h1>Via<span style={{color:'blue'}}>Mart</span></h1>
                     </Link>
                     <Link to='/' className='header-font-design'>
                         <span>deliver to person name adress</span>
@@ -69,7 +69,7 @@ function Header() {
 
                 <div className='header-feature-div'>
                     <Link to='/' className='header-font-design'>
-                        <h3>Your<span style={{color:'blue'}}>Mart</span></h3>
+                        <h3>Via<span style={{color:'blue'}}>Mart</span></h3>
                     </Link>
                   
                     <div id='login-div' className='header-font-design'>
