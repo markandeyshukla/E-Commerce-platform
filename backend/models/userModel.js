@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     match: /^[0-9]{10}$/,
     unique: true,
     sparse:true,
-    default: null
+    default: null,
   },
   altPhone: {
     type: String,

@@ -48,23 +48,30 @@ router.post("/seller/signup", upload.single("file"), async (req, res) => {
     // Hash password
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // Upload file to Cloudinary if exists
+    // Upload file to Cloudinary if provided
     let fileUrl = "";
     if (req.file) {
-      const uploaded = await Cloudinary.uploader.upload_stream(
-        { resource_type: "auto" },
-        (error, result) => {
-          if (error) throw error;
-          fileUrl = result.secure_url;
-        }
-      );
-      uploaded.end(req.file.buffer);
+      const streamUpload = (buffer) => {
+        return new Promise((resolve, reject) => {
+          const stream = Cloudinary.uploader.upload_stream(
+            { resource_type: "auto" },
+            (error, result) => {
+              if (error) return reject(error);
+              resolve(result);
+            }
+          );
+          stream.end(buffer);
+        });
+      };
+
+      const uploaded = await streamUpload(req.file.buffer);
+      fileUrl = uploaded.secure_url;
     }
 
     const newUser = new User({
       email,
       username,
-      passwordHash,
+      passwordHash, // <-- Make sure schema expects this field
       role: "seller",
       phone,
       altPhone,
@@ -83,77 +90,23 @@ router.post("/seller/signup", upload.single("file"), async (req, res) => {
 
     await newUser.save();
 
+    // Generate JWT
     const token = jwt.sign(
       { id: newUser._id, username: newUser.username, email: newUser.email, role: newUser.role },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
 
-    res.json({ success: true, token, user: { username: newUser.username, email: newUser.email, role: newUser.role } });
+    res.json({
+      success: true,
+      token,
+      user: { username: newUser.username, email: newUser.email, role: newUser.role }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Server error" });
   }
 });
-
-
-
-// OTP store for password reset
-// const resetOtpStore = {}; // { email: { otp, expires } }
-
-// // Send OTP for password reset
-// router.post("/forgot-password/send-otp", async (req, res) => {
-//   const { email } = req.body;
-//   if (!email) return res.status(400).json({ success: false, message: "Email required" });
-
-//   const user = await User.findOne({ email });
-//   if (!user) return res.status(400).json({ success: false, message: "Email not registered" });
-
-//   const otp = Math.floor(100000 + Math.random() * 900000); // 6-digit OTP
-//   const expires = Date.now() + 5 * 60 * 1000; // 5 min
-//   resetOtpStore[email] = { otp, expires };
-
-//   try {
-//     const transporter = nodemailer.createTransport({
-//       service: "gmail",
-//       auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-//     });
-
-//     await transporter.sendMail({
-//       from: process.env.EMAIL_USER,
-//       to: email,
-//       subject: "Password Reset OTP",
-//       text: `Your OTP for password reset is ${otp}. It will expire in 5 minutes.`,
-//     });
-
-//     res.json({ success: true, message: "OTP sent to email" });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ success: false, message: "Email sending failed" });
-//   }
-// });
-
-// // Verify OTP & Reset Password
-// router.post("/forgot-password/verify-otp", async (req, res) => {
-//   const { email, otp, newPassword } = req.body;
-//   if (!email || !otp || !newPassword) return res.status(400).json({ success: false, message: "All fields required" });
-
-//   const record = resetOtpStore[email];
-//   if (!record || record.otp.toString() !== otp || record.expires < Date.now()) {
-//     return res.status(400).json({ success: false, message: "Invalid or expired OTP" });
-//   }
-
-//   const passwordHash = await bcrypt.hash(newPassword, 10);
-//   await User.updateOne({ email }, { $set: { passwordHash } });
-
-//   delete resetOtpStore[email]; // Remove OTP after reset
-//   res.json({ success: true, message: "Password reset successful" });
-// });
-
-
-
-
-
 
 
 

@@ -23,3 +23,4 @@ export const authMiddleware = async (req, res, next) => {
     res.status(401).json({ success: false, message: "Unauthorized" });
   }
 };
+export default authMiddleware;
