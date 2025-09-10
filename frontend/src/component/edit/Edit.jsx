@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./listing.css";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import "./edit.css";
 
-function Listing() {
-    const navigate = useNavigate(); // <- create navigate function
+function Edit() {
+  const { id } = useParams(); // product id from URL
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     brandName: "",
@@ -24,6 +25,17 @@ function Listing() {
 
   const [preview, setPreview] = useState(null);
 
+  // Fetch existing product data
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/products/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFormData(data);
+        setPreview(data.imgUrl);
+      })
+      .catch((err) => console.error(err));
+  }, [id]);
+
   // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,68 +45,51 @@ function Listing() {
     }));
   };
 
-  // Handle image preview and convert to base64
-  const handleImageUpload = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  // Handle image preview and base64 conversion
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
 
-  setPreview(URL.createObjectURL(file));
-
-  const formDataImg = new FormData();
-  formDataImg.append("image", file);
-
-  try {
-    const res = await fetch("http://localhost:5000/api/upload", {
-      method: "POST",
-      body: formDataImg,
-    });
-    const data = await res.json();
-    if (res.ok) {
-      setFormData(prev => ({ ...prev, imgUrl: data.imgUrl }));
-    } else {
-      alert("Image upload failed");
-      console.error(data);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({
+          ...prev,
+          imgUrl: reader.result,
+        }));
+      };
+      reader.readAsDataURL(file);
     }
-  } catch (err) {
-    console.error("Upload error:", err);
-  }
-};
+  };
 
-
-  // Handle form submit
+  // Handle PUT submit
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    try {
+      const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-  // ✅ Validate imgUrl
-  if (!formData.imgUrl) {
-    alert("Please upload a product image before submitting!");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      alert("✅ Product uploaded successfully!");
-      navigate("/sellerdashboard");
-    } else {
-      alert("❌ Failed to upload product!");
-      console.error(data);
+      const data = await res.json();
+      if (res.ok) {
+        alert("✅ Product updated successfully!");
+        navigate("/sellerdashboard"); // redirect to dashboard
+      } else {
+        alert("❌ Failed to update product!");
+        console.error(data);
+      }
+    } catch (error) {
+      console.error("Error updating product:", error);
     }
-  } catch (err) {
-    console.error("Error uploading product:", err);
-  }
-};
-
+  };
 
   return (
     <>
-      <h1 className="heading1">ViaMart Listing Page</h1>
+      <h1 className="heading1">Edit Product</h1>
 
       <div className="upload-car-main">
         <form className="Upload-car-form" id="uploadcar" onSubmit={handleSubmit}>
@@ -205,10 +200,10 @@ function Listing() {
             onChange={handleChange}
             required
           />
-            <textarea
+          <textarea
             className="upload-car-form-detail"
             name="keywords"
-            placeholder="Keywords for Product Search enter more name separated by commas."
+            placeholder="Keywords for Product Search"
             value={formData.keywords}
             onChange={handleChange}
             required
@@ -226,7 +221,7 @@ function Listing() {
           <input
             className="upload-car-form-detail-btn"
             type="submit"
-            value="Submit"
+            value="Update Product"
           />
         </form>
       </div>
@@ -234,4 +229,4 @@ function Listing() {
   );
 }
 
-export default Listing;
+export default Edit;

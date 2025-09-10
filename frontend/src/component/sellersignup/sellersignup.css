@@ -1,4 +1,4 @@
-.payment-main-div{
+.seller-main-div{
 background: #fefefe;
     border-radius: 16px;
     box-shadow: 0 0 15px #0000001a;
@@ -7,14 +7,14 @@ background: #fefefe;
     max-width: 600px;
     padding: 20px;
 }
-.product-summary-payment{
+.product-summary-seller{
     align-items: center;
     display: flex
 ;
     flex-direction: column;
     margin-bottom: 25px;
 }
-.payment-img-product{
+.seller-img-product{
     border-radius: 10px;
     height: 200px;
     margin-bottom: 10px;
@@ -26,13 +26,13 @@ background: #fefefe;
     max-width: 350px;
     padding: 10px;
 }
-.payment-product-price{
+.seller-product-price{
 text-align: center;
 }
-.payment-address{
+.seller-address{
 width: 100%;
 }
-.payment-form-input{
+.seller-form-input{
 border: 1.5px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
@@ -41,7 +41,7 @@ border: 1.5px solid #ccc;
     transition: border-color .3s ease;
     width: 100%;
 }
-.payment-form-btn{
+.seller-form-btn{
     width: 100%;
     background-color: #007bff;
     border: none;

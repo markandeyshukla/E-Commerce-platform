@@ -41,9 +41,22 @@
   font-size: 22px;
   cursor: pointer;
 }
-.heart-filled-searchpage{ display: none; color: red; }
-.wishlist-icon-searchpage:hover .heart-outline-searchpage{ display: none; }
-.wishlist-icon-searchpage:hover .heart-filled-searchpage{ display: inline; }
+.wishlist-icon-searchpage {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.heart-outline-searchpage {
+  color: #555;
+}
+
+.heart-filled-searchpage {
+  color: red;
+}
 
 .product-info-searchpage{
   padding: 12px;
@@ -74,11 +87,10 @@
 }
 .cart-btn-searchpage{
   border: none;
-  background: #f1f1f1;
-  padding: 8px 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
+    background: #f1f1f1;
+    padding: 6px 5px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 .buy-btn-searchpage{
   flex: 1;

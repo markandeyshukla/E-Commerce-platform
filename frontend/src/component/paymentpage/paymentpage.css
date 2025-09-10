@@ -15,10 +15,13 @@ background: #fefefe;
     margin-bottom: 25px;
 }
 .payment-img-product{
+    justify-self: center;
+    /* justify-content: center; */
+    display: flex;
     border-radius: 10px;
     height: 200px;
     margin-bottom: 10px;
-    object-fit: cover;
+    object-fit: contain;
     width: 140px;
 
     background-color: #f9f9f9;
@@ -27,6 +30,9 @@ background: #fefefe;
     padding: 10px;
 }
 .payment-product-price{
+text-align: center;
+}
+.payment-product-name{
 text-align: center;
 }
 .payment-address{
@@ -53,4 +59,31 @@ border: 1.5px solid #ccc;
     padding: .75rem 1.5rem;
     transition: background-color .3s ease;
     background: #3498db;
+}
+.payment-upi-btn{
+    display: none;
+     width: 100%;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    padding: .75rem 1.5rem;
+    transition: background-color .3s ease;
+    background: #3498db;
+}
+.payment-qr-code{
+    display: block;
+}
+.payment-step2-div{
+    display: flex;
+    flex-direction: column;
+   justify-self: center;
+}
+@media(max-width:480px){
+    .payment-upi-btn{
+        display: block;
+    }
 }

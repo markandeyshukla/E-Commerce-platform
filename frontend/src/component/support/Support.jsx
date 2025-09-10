@@ -1,24 +1,120 @@
 import './support.css';
-import { Link } from 'react-router-dom';
-function Support(){
-    return(
-        <>
-        <div className='main-div-support'>
-           <div className='form-div-support'>
-             <form action="submit" className='form-main-support'>
-            <input type="text" placeholder="Your Name" className='input-support'/>
-            <input type="text" placeholder='Your E-mail' className='input-support'/>
-            <textarea name="Issue" id="" className='input-support' placeholder='Explain Issue in Detail' ></textarea>
-            <label for="issue" className='upload-button-support'>Upload Issue Screenshot</label>
-            <input id="issue" type="file" placeholder="upload Screenshot of Issue" className='label-upload-support' accept="image/*"/>
-            <input type="submit" className='input-support-btn'/>
-            <div><Link to='/msgbox'>Chat With US!</Link></div>
-            </form>
-            
-           </div>
+import { Link, useNavigate } from 'react-router-dom'; // FIXED
+import { useState } from 'react';
 
-        </div>
-        </>
-    )
+function Support(){
+  const navigate = useNavigate(); // initialize navigate hook
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    issue: "",
+    screenshot: null
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (files) {
+      setFormData(prev => ({ ...prev, screenshot: files[0] }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("email", formData.email);
+      data.append("issue", formData.issue);
+      if (formData.screenshot) {
+        data.append("screenshot", formData.screenshot);
+      }
+
+      const res = await fetch("http://localhost:5000/api/support", {
+        method: "POST",
+        body: data
+      });
+
+      if (res.ok) {
+        alert("✅ Your issue has been submitted!");
+        navigate("/"); // ✅ Correct usage
+      } else {
+        alert("❌ Error submitting issue");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong!");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className='main-div-support'>
+      <div className='form-div-support'>
+        <form onSubmit={handleSubmit} className='form-main-support'>
+          <input 
+            type="text" 
+            name="name" 
+            placeholder="Your Name" 
+            value={formData.name}
+            onChange={handleChange}
+            className='input-support'
+            required
+          />
+          <input 
+            type="email" 
+            name="email" 
+            placeholder='Your E-mail' 
+            value={formData.email}
+            onChange={handleChange}
+            className='input-support'
+            required
+          />
+          <textarea 
+            name="issue"
+            className='input-support'
+            placeholder='Explain Issue in Detail'
+            value={formData.issue}
+            onChange={handleChange}
+            required
+          ></textarea>
+
+          <label htmlFor="issueScreenshot" className='upload-button-support'>
+            Upload Issue Screenshot
+          </label>
+          <input 
+            id="issueScreenshot" 
+            type="file" 
+            name="screenshot"
+            className='label-upload-support' 
+            accept="image/*"
+            onChange={handleChange}
+          />
+
+          <input 
+            type="submit" 
+            value={loading ? "Sending..." : "Send Issue"} 
+            className='input-support-btn'
+            disabled={loading} 
+          />
+
+          {loading && (
+            <p style={{ color: "blue", marginTop: "10px" }}>
+              📩 Please wait, we are submitting your issue...
+            </p>
+          )}
+
+          <div><Link to='/msgbox'>Chat With US!</Link></div>
+        </form>
+      </div>
+    </div>
+  )
 }
+
 export default Support;
