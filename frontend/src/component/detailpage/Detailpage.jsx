@@ -1,21 +1,39 @@
 import { useEffect, useState, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
-import { CartContext } from "../../component/CartContext"; // ✅ Cart Context
+import { useParams, useNavigate } from "react-router-dom";
+import { CartContext } from "../../component/CartContext"; 
 import "./detailpage.css";
 
 function Detailpage() {
-  const { id } = useParams(); // URL se id milega
+  const { id } = useParams(); 
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
-
   const { cartItems, addToCart } = useContext(CartContext);
 
-  // Check if product is already in cart
   const isInCart = cartItems.some(item => item.productId._id === id);
+
+  const token = localStorage.getItem("token"); 
+
+  const handleAddToCart = () => {
+    if (!token) {
+      alert("Please login first to add products to cart!");
+      return;
+    }
+    addToCart(product._id);
+  };
+
+  const handleBuyNow = () => {
+    if (!token) {
+      alert("Please login first to buy!");
+      navigate("/login");
+      return;
+    }
+    navigate(`/payment/${product._id}`);
+  };
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/products/${id}`);
+        const res = await fetch(`https://e-commerce-platform-5c4x.onrender.com/api/products/${id}`);
         const data = await res.json();
         setProduct(data);
       } catch (error) {
@@ -35,20 +53,18 @@ function Detailpage() {
         <img src={product.imgUrl} alt={product.productName} className="detailpage-img" />
         <h2 className="name-product-detailpage">{product.productName}</h2>
 
-        {/* Add to Cart button */}
-        <button
+       <button
           className="detailpage-buy-btn"
-          onClick={() => addToCart(product._id)}
-          disabled={isInCart} // disable if already in cart
+          onClick={handleAddToCart}
+          disabled={isInCart} 
         >
           {isInCart ? "Added to Cart" : "Add to Cart"}
         </button>
 
-        <Link to={`/payment/${product._id}`}>
-          <button className="detailpage-buy-btn">
-            Buy {product.productName}
-          </button>
-        </Link>
+        
+        <button className="detailpage-buy-btn" onClick={handleBuyNow}>
+          Buy {product.productName}
+        </button>
       </div>
 
       <div className="detailpage-feature-div">

@@ -27,14 +27,12 @@ function Sellersignup() {
     file: null
   });
 
-  // Handle form input changes
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) setFormData({ ...formData, [name]: files[0] });
     else setFormData({ ...formData, [name]: value });
   };
 
-  // Move to Step 2
   const handleNextStep1 = (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password || !formData.confirmPassword) {
@@ -48,13 +46,11 @@ function Sellersignup() {
     setStep(2);
   };
 
-  // Move to Step 3
   const handleNextStep2 = (e) => {
     e.preventDefault();
     setStep(3);
   };
 
-  // Final submit (Step 3)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -69,7 +65,7 @@ function Sellersignup() {
         if (formData[key]) data.append(key, formData[key]);
       });
 
-      const res = await fetch("http://localhost:5000/api/user/seller/signup", {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/user/seller/signup", {
         method: "POST",
         body: data
       });
@@ -77,7 +73,9 @@ function Sellersignup() {
       const result = await res.json();
       if (result.success) {
         localStorage.setItem("token", result.token);
-        localStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("username", result.user.username);
+        localStorage.setItem("role", result.user.role);
+
         alert("Signup successful!");
         navigate("/sellerdashboard");
       } else {
@@ -99,9 +97,9 @@ function Sellersignup() {
       {step === 1 && (
         <form onSubmit={handleNextStep1} className='seller-address'>
           <h2>Step 1: Create Account</h2>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className='seller-form-input' />
-          <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" className='seller-form-input' />
-          <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" className='seller-form-input' />
+          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className='seller-form-input' required />
+          <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Password" className='seller-form-input' required  />
+          <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm Password" className='seller-form-input' required  />
           <button type='submit' className='seller-form-btn'>Next</button>
         </form>
       )}
@@ -109,16 +107,16 @@ function Sellersignup() {
       {step === 2 && (
         <form onSubmit={handleNextStep2} className='seller-address'>
           <h2>Step 2: Business Details</h2>
-          <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Name" className='seller-form-input' />
-          <input type="number" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className='seller-form-input' />
-          <input type="number" name="altPhone" value={formData.altPhone} onChange={handleChange} placeholder="Alternative Phone" className='seller-form-input' />
-          <input type="text" name="panCard" value={formData.panCard} onChange={handleChange} placeholder="Pancard" className='seller-form-input' />
+          <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Name" className='seller-form-input' required  />
+          <input type="number" name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className='seller-form-input' required  />
+          <input type="number" name="altPhone" value={formData.altPhone} onChange={handleChange} placeholder="Alternative Phone" className='seller-form-input'  required />
+          <input type="text" name="panCard" value={formData.panCard} onChange={handleChange} placeholder="Pancard" className='seller-form-input'  required />
           <input type="text" name="gstin" value={formData.gstin} onChange={handleChange} placeholder="GSTIN (optional)" className='seller-form-input' />
-          <input type="text" name="addressLine1" value={formData.addressLine1} onChange={handleChange} placeholder="Address Line 1" className='seller-form-input' />
+          <input type="text" name="addressLine1" value={formData.addressLine1} onChange={handleChange} placeholder="Address Line 1" className='seller-form-input' required  />
           <input type="text" name="addressLine2" value={formData.addressLine2} onChange={handleChange} placeholder="Address Line 2" className='seller-form-input' />
-          <input type="text" name="state" value={formData.state} onChange={handleChange} placeholder="State" className='seller-form-input' />
-          <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" className='seller-form-input' />
-          <input type="number" name="pincode" value={formData.pincode} onChange={handleChange} placeholder="Pincode" className='seller-form-input' />
+          <input type="text" name="state" value={formData.state} onChange={handleChange} placeholder="State" className='seller-form-input'  required />
+          <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="City" className='seller-form-input'  required />
+          <input type="number" name="pincode" value={formData.pincode} onChange={handleChange} placeholder="Pincode" className='seller-form-input'  required />
           <button type='submit' className='seller-form-btn'>Next</button>
         </form>
       )}
@@ -126,12 +124,12 @@ function Sellersignup() {
       {step === 3 && (
         <form onSubmit={handleSubmit} className='seller-address'>
           <h2>Step 3: Bank Details</h2>
-          <input type="number" name="accountNumber" value={formData.accountNumber} onChange={handleChange} placeholder="Account Number" className='seller-form-input' />
-          <input type="number" name="confirmAccountNumber" value={formData.confirmAccountNumber} onChange={handleChange} placeholder="Confirm Account Number" className='seller-form-input' />
-          <input type="text" name="ifscCode" value={formData.ifscCode} onChange={handleChange} placeholder="IFSC" className='seller-form-input' />
-          <input type="text" name="accountHolderName" value={formData.accountHolderName} onChange={handleChange} placeholder="Account Holder Name" className='seller-form-input' />
+          <input type="number" name="accountNumber" value={formData.accountNumber} onChange={handleChange} placeholder="Account Number" className='seller-form-input'  required />
+          <input type="password" name="confirmAccountNumber" value={formData.confirmAccountNumber} onChange={handleChange} placeholder="Confirm Account Number" className='seller-form-input' required  />
+          <input type="text" name="ifscCode" value={formData.ifscCode} onChange={handleChange} placeholder="IFSC" className='seller-form-input'  required  />
+          <input type="text" name="accountHolderName" value={formData.accountHolderName} onChange={handleChange} placeholder="Account Holder Name" className='seller-form-input'  required  />
           <label htmlFor="file">Upload Passbook/Cancelled Cheque</label>
-          <input type="file" name="file" onChange={handleChange} id="file" accept="image/*,.pdf" className='seller-form-input' />
+          <input type="file" name="file" onChange={handleChange} id="file" accept="image/*,.pdf" className='seller-form-input'  required />
           <button type='submit' className='seller-form-btn'>Submit</button>
         </form>
       )}

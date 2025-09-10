@@ -4,16 +4,16 @@ import { CartContext } from "../../component/CartContext";
 import "./cart.css";
 
 function Cart() {
-  // ✅ Provide default empty array to avoid runtime errors
+  
   const { cartItems = [], removeFromCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
 
-  // ✅ Calculate total safely
+
   const total = Array.isArray(cartItems)
     ? cartItems.reduce((sum, item) => sum + (item.productId?.price || 0) * item.quantity, 0)
     : 0;
 
-  // ✅ Checkout handler
+ 
   const handleCheckout = () => {
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       alert("Your cart is empty!");
@@ -26,12 +26,12 @@ function Cart() {
     <div className="cart-main-div">
       <h2 className="cart-title">Your Cart</h2>
 
-      {/* ✅ Show empty message */}
+     
       {Array.isArray(cartItems) && cartItems.length === 0 && (
         <p className="cart-empty">No items in cart.</p>
       )}
 
-      {/* ✅ Render cart items safely */}
+      
       {Array.isArray(cartItems) &&
         cartItems.map((item) => (
           <div key={item._id} className="cart-card">
@@ -82,7 +82,7 @@ function Cart() {
           </div>
         ))}
 
-      {/* ✅ Cart summary */}
+      
       {Array.isArray(cartItems) && cartItems.length > 0 && (
         <div className="cart-summary">
           <h3 className="cart-total">Total: ₹{total}</h3>

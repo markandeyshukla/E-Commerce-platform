@@ -1,19 +1,19 @@
-// CartContext.js
+
 import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]); // always array
+  const [cartItems, setCartItems] = useState([]); 
 
-  // ✅ Fetch cart from backend
+
   useEffect(() => {
     const fetchCart = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) return; // no user logged in
+        if (!token) return; 
 
-        const res = await fetch("http://localhost:5000/api/cart", {
+        const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/cart", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -26,13 +26,13 @@ export const CartProvider = ({ children }) => {
     fetchCart();
   }, []);
 
-  // ✅ Add to cart
+
   const addToCart = async (productId) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await fetch("http://localhost:5000/api/cart", {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -49,13 +49,13 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // ✅ Remove from cart
+
   const removeFromCart = async (productId) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await fetch(`http://localhost:5000/api/cart/${productId}`, {
+      const res = await fetch(`https://e-commerce-platform-5c4x.onrender.com/api/cart/${productId}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -67,13 +67,13 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // ✅ Update quantity
+
   const updateQuantity = async (productId, quantity) => {
     try {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await fetch(`http://localhost:5000/api/cart/${productId}`, {
+      const res = await fetch(`https://e-commerce-platform-5c4x.onrender.com/api/cart/${productId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -92,15 +92,15 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  // ✅ Check if product is in cart safely
+
   const isInCart = (productId) =>
     Array.isArray(cartItems) && cartItems.some(item => item.productId?._id === productId);
 
-  // ✅ Safe logout clears cart
+
   const logout = () => {
     localStorage.removeItem("token");
-    setCartItems([]); // clear cart
-    window.location.href = "/login"; // redirect to login
+    setCartItems([]); 
+    window.location.href = "/login"; 
   };
 
   return (

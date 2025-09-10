@@ -1,9 +1,9 @@
 .banner-container {
-  width: 100%;   /* 90% → 100% */
+  width: 100%;   
   height: 300px;
   overflow: hidden;
   margin-top: 10px;
-  position: relative; /* Arrow positioning ke liye */
+  position: relative; 
 }
 .banner-img{
     width: 100%;
@@ -14,14 +14,13 @@
     margin: 10px;
 }
 .slick-prev {
-  left: 10px !important;   /* left arrow */
+  left: 10px !important;   
   z-index: 1;
   color: black !important;
 }
 
 .slick-next {
-  right: 10px !important;  /* right arrow */
-  /* z-index: 1; */
+  right: 10px !important;  
   color: black !important;
 }
 @media(max-width:768px){

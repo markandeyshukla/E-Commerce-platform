@@ -88,18 +88,21 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// @desc Update product
+
+// UPDATE PRODUCT
 router.put("/:id", authMiddleware, async (req, res) => {
   try {
     const product = await ProductModel.findById(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    if (req.user.role !== "seller" || product.sellerId.toString() !== req.user._id) {
+    // Ensure only seller who owns product can update
+    if (req.user.role !== "seller" || product.sellerId.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "You can only update your own products" });
     }
 
-    let imgUrl = product.imgUrl; // default purana image
-    if (req.body.imgUrl) {
+    // Handle image if base64 provided
+    let imgUrl = product.imgUrl;
+    if (req.body.imgUrl && req.body.imgUrl.startsWith("data:image")) {
       const uploaded = await uploadOnCloudinary(req.body.imgUrl);
       imgUrl = uploaded?.secure_url || imgUrl;
     }
@@ -112,23 +115,26 @@ router.put("/:id", authMiddleware, async (req, res) => {
 
     res.status(200).json(updatedProduct);
   } catch (error) {
+    console.error("Error updating product:", error);
     res.status(500).json({ message: "Error updating product", error });
   }
 });
 
-// @desc Delete product
+// DELETE PRODUCT
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     const product = await ProductModel.findById(req.params.id);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
-    if (req.user.role !== "seller" || product.sellerId.toString() !== req.user._id) {
+    // Only seller who owns product can delete
+    if (req.user.role !== "seller" || product.sellerId.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: "You can only delete your own products" });
     }
 
     await product.deleteOne();
     res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
+    console.error("Error deleting product:", error);
     res.status(500).json({ message: "Error deleting product", error });
   }
 });

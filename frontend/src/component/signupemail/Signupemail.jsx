@@ -28,7 +28,7 @@ function SignupEmail() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/signup", {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/user/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -41,20 +41,20 @@ function SignupEmail() {
       const data = await res.json();
 
       if(data.success){
-        // Backend should return token, role, username, email
-        const { token, user } = data; // user = { username, email, role }
+        
+        const { token, user } = data; 
 
-        // Save token & user info in localStorage
+        
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
         alert("Signup successful!");
 
-        // Role-based navigation
+        
         if(user.role === "seller"){
           navigate("/sellerdashboard");
         } else {
-          navigate("/"); // buyer or default
+          navigate("/");
         }
 
       } else {
@@ -79,23 +79,15 @@ function SignupEmail() {
       <div className='signupemail-details'>
         <form onSubmit={handleSubmit} className='form-signupemail'>
           <h3>Signup With E-mail</h3>
-          <input type="text" name="username" placeholder='Enter Name' className='input-detail-signupemail' value={formData.username} onChange={handleChange} />
-          <input type="email" name="email" placeholder='Enter Email' className='input-detail-signupemail' value={formData.email} onChange={handleChange} />
-          <input type="password" name="password" placeholder='Enter Password' className='input-detail-signupemail' value={formData.password} onChange={handleChange} />
-          <input type="password" name="confirmPassword" placeholder='Confirm Password' className='input-detail-signupemail' value={formData.confirmPassword} onChange={handleChange} />
+          <input type="text" name="username" placeholder='Enter Name' className='input-detail-signupemail' value={formData.username} onChange={handleChange}  required  />
+          <input type="email" name="email" placeholder='Enter Email' className='input-detail-signupemail' value={formData.email} onChange={handleChange}  required />
+          <input type="password" name="password" placeholder='Enter Password' className='input-detail-signupemail' value={formData.password} onChange={handleChange}  required />
+          <input type="password" name="confirmPassword" placeholder='Confirm Password' className='input-detail-signupemail' value={formData.confirmPassword} onChange={handleChange}  required />
           <button type="submit" className='input-detail-signupemail-btn' disabled={loading}>
             {loading ? "Signing up..." : "Signup"}
           </button>
         </form>
 
-        <p style={{textAlign:"center"}}><Link to='/phone'>Signup With Phone</Link></p>
-
-        <div className='google-signupemail'>
-          <button className='google-signupemail-btn'>
-            <img src="https://developers.google.com/identity/images/g-logo.png" alt="" className='google-icon' />
-            <span>Signup With Google</span>
-          </button>
-        </div>
 
         <p style={{textAlign:"end"}}><Link to='/login'>Already Have an Account? Login</Link></p>
       </div>

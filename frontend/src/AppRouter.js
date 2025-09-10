@@ -15,7 +15,6 @@ import Wishlistpage from './pages/Wishlist/index.js';
 import Cartpage from './pages/Cart/index.js';
 import Supportpage from './pages/Support/index.js';
 import Loginpage from './pages/Login/index.js';
-import SignupphonePage from './pages/Signupphone/index.js';
 import Signupemailpage from './pages/Signupemail/index.js';
 import Editpage from './pages/Edit/index.js';
 import Forgotpage from './pages/Forgot/index.js';
@@ -23,7 +22,7 @@ import Forgotpage from './pages/Forgot/index.js';
 const AppRouter = () => {
     return (
         <WishlistProvider>
-            <CartProvider> {/* ✅ Wrap CartProvider inside WishlistProvider */}
+            <CartProvider>
                 <Router>
                     <Routes>
                         <Route path='/' element={<Home />} />
@@ -40,8 +39,7 @@ const AppRouter = () => {
                         <Route path='/cart' element={<Cartpage />} />
                         <Route path='/support' element={<Supportpage />} />
                         <Route path='/login' element={<Loginpage />} />
-                        <Route path='/phone' element={<SignupphonePage />} />
-                        <Route path='/email' element={<Signupemailpage />} />
+                        <Route path='/signup' element={<Signupemailpage />} />
                         <Route path='/edit/:id' element={<Editpage />} />
                     </Routes>
                 </Router>

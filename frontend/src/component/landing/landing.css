@@ -50,11 +50,11 @@
 }
 
 .heart-outline-landing {
-    color: #888; /* grey heart by default */
+    color: #888; 
 }
 
 .heart-filled-landing {
-    color: red; /* red heart when added to wishlist */
+    color: red; 
 }
 
 .product-info-landing {
@@ -76,7 +76,7 @@
     font-size: 13px;
     color: #555;
     line-height: 1.4;
-    max-height: 40px; /* only 2 lines */
+    max-height: 40px; 
     overflow: hidden;
     text-overflow: ellipsis;
 }

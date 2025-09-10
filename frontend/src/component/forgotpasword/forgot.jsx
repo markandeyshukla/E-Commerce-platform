@@ -15,7 +15,7 @@ function ForgotPassword() {
     if (!formData.email) return alert("Enter email");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/forgot-password/send-otp", {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/forgot-password/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email })
@@ -40,7 +40,7 @@ function ForgotPassword() {
 
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/forgot-password/verify-otp", {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/forgot-password/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
@@ -48,7 +48,7 @@ function ForgotPassword() {
       const data = await res.json();
       if (data.success) {
         alert("Password reset successful! Login with new password");
-        window.location.href = "/login"; // redirect to login
+        window.location.href = "/login"; 
       } else {
         alert(data.message);
       }

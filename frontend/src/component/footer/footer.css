@@ -1,5 +1,4 @@
 .contact {
-    /* width: 100%; */
     height: fit-content;
     padding: 25px;
     background-color: black;
@@ -14,10 +13,6 @@
         height: auto;
         padding: 1%;
 }
-/* .contact>div{
-    display: flex;
-    flex-direction: row;
-} */
 
 .contact-detail {
     color: white;
@@ -83,110 +78,6 @@
     transform: rotate(360deg);
     
 }
-/* 
-@media(min-width:2400px){
-    .contact {
-        width: 100%;
-        height: auto;
-        background-color: black;
-        text-align: center;
-        justify-content: center;
-    }
-    
-    .contact-detail {
-        color: white;
-        text-align: center;
-    }
-
-    .contact-details {
-        color: white;
-        font-size: 55px;
-    }
-
-    .image {
-        width: 52px;
-        height: auto;
-        margin-right: 20px;
-    }
-
-    .social-media {
-        color: white;
-        text-align: center;
-    }
-
-    .pp {
-        color: white;
-        font-size: 55px;
-    }
-
-    .test {
-        color: white;
-        text-decoration: none;
-        font-size: 35px;
-    }
-
-    .tast {
-        color: white;
-        text-decoration: none;
-        font-size: 29px;
-    }
-} 
-      */ 
-/* @media(min-width:1444px){
-    .contact {
-        width: 100%;
-        height: auto;
-        background-color: black;
-        text-align: center;
-        justify-content: center;
-    }
-    .footer-conrtaindiv{
-        display: flex;
-            flex-direction: row;
-            width: 98%;
-            height: auto;
-            padding: 1%;
-    }
-    .contact-detail {
-        color: white;
-        text-align: center;
-    }
-   
-
-    .contact-details {
-        color: white;
-        font-size: 25px;
-    }
-
-    .image {
-        width: 30px;
-        height: auto;
-        margin-right: 10px;
-    }
-
-    .social-media {
-        color: white;
-        text-align: center;
-    }
-
-    .pp {
-        color: white;
-        font-size: 25px;
-    }
-
-    .test {
-        color: white;
-        text-decoration: none;
-        font-size: 21px;
-    }
-
-    .tast {
-        color: white;
-        text-decoration: none;
-        font-size: 15px;
-    }
-}
- */
 
 @media (max-width:1024px) {
     .contact {

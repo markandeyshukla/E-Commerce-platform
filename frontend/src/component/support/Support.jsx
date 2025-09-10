@@ -1,9 +1,9 @@
 import './support.css';
-import { Link, useNavigate } from 'react-router-dom'; // FIXED
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-function Support(){
-  const navigate = useNavigate(); // initialize navigate hook
+function Support() {
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -13,6 +13,8 @@ function Support(){
   });
 
   const [loading, setLoading] = useState(false);
+
+  const token = localStorage.getItem("token"); 
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -25,6 +27,12 @@ function Support(){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!token) {
+      alert("Please login first to submit an issue!");
+      return;
+    }
+
     setLoading(true);
     try {
       const data = new FormData();
@@ -42,7 +50,7 @@ function Support(){
 
       if (res.ok) {
         alert("✅ Your issue has been submitted!");
-        navigate("/"); // ✅ Correct usage
+        navigate("/");
       } else {
         alert("❌ Error submitting issue");
       }

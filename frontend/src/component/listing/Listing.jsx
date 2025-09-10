@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./listing.css";
 
 function Listing() {
-    const navigate = useNavigate(); // <- create navigate function
+  const navigate = useNavigate();
+
+  const token = localStorage.getItem("token");
 
   const [formData, setFormData] = useState({
     brandName: "",
@@ -23,8 +25,8 @@ function Listing() {
   });
 
   const [preview, setPreview] = useState(null);
+  const [imgUploading, setImgUploading] = useState(false); // ✅ New state for image uploading
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -33,64 +35,69 @@ function Listing() {
     }));
   };
 
-  // Handle image preview and convert to base64
   const handleImageUpload = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-  setPreview(URL.createObjectURL(file));
+    setPreview(URL.createObjectURL(file));
+    setImgUploading(true); 
 
-  const formDataImg = new FormData();
-  formDataImg.append("image", file);
+    const formDataImg = new FormData();
+    formDataImg.append("image", file);
 
-  try {
-    const res = await fetch("http://localhost:5000/api/upload", {
-      method: "POST",
-      body: formDataImg,
-    });
-    const data = await res.json();
-    if (res.ok) {
-      setFormData(prev => ({ ...prev, imgUrl: data.imgUrl }));
-    } else {
-      alert("Image upload failed");
-      console.error(data);
+    try {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/upload", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+        body: formDataImg,
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setFormData((prev) => ({ ...prev, imgUrl: data.imgUrl }));
+      } else {
+        alert("Image upload failed");
+        console.error(data);
+      }
+    } catch (err) {
+      console.error("Upload error:", err);
+    } finally {
+      setImgUploading(false); // ✅ stop uploading
     }
-  } catch (err) {
-    console.error("Upload error:", err);
-  }
-};
+  };
 
-
-  // Handle form submit
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // ✅ Validate imgUrl
-  if (!formData.imgUrl) {
-    alert("Please upload a product image before submitting!");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const data = await res.json();
-    if (res.ok) {
-      alert("✅ Product uploaded successfully!");
-      navigate("/sellerdashboard");
-    } else {
-      alert("❌ Failed to upload product!");
-      console.error(data);
+    if (!formData.imgUrl) {
+      alert("Please upload a product image before submitting!");
+      return;
     }
-  } catch (err) {
-    console.error("Error uploading product:", err);
-  }
-};
 
+    try {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        alert("✅ Product uploaded successfully!");
+        navigate("/sellerdashboard");
+      } else {
+        alert("❌ Failed to upload product!");
+        console.error(data);
+      }
+    } catch (err) {
+      console.error("Error uploading product:", err);
+    }
+  };
 
   return (
     <>
@@ -205,14 +212,15 @@ function Listing() {
             onChange={handleChange}
             required
           />
-            <textarea
+          <textarea
             className="upload-car-form-detail"
             name="keywords"
-            placeholder="Keywords for Product Search enter more name separated by commas."
+            placeholder="Keywords for Product Search (comma separated)"
             value={formData.keywords}
             onChange={handleChange}
             required
           />
+
           <label htmlFor="imgUploadInput" className="upload-btn">
             Upload Product Image
           </label>
@@ -226,7 +234,8 @@ function Listing() {
           <input
             className="upload-car-form-detail-btn"
             type="submit"
-            value="Submit"
+            value={imgUploading ? "Uploading Image..." : "Submit"}
+            disabled={imgUploading} // ✅ prevent submitting while uploading
           />
         </form>
       </div>

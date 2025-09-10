@@ -1,13 +1,14 @@
 import { useEffect, useState, useContext } from "react";
 import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { MdAddShoppingCart } from "react-icons/md";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { WishlistContext } from "../../component/WishlistContext";
 import { CartContext } from "../../component/CartContext";
 import "./search.css";
 
 function Search() {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const keyword = queryParams.get("q") || "";
 
@@ -17,16 +18,39 @@ function Search() {
 
   useEffect(() => {
     if (keyword) {
-      fetch(`http://localhost:5000/api/products/search?q=${keyword}`)
+      fetch(`https://e-commerce-platform-5c4x.onrender.com/api/products/search?q=${keyword}`)
         .then(res => res.json())
         .then(data => setProducts(data))
         .catch(err => console.error(err));
     }
   }, [keyword]);
 
+  const token = localStorage.getItem("token"); // check login
+
   const handleWishlist = (product) => {
+    if (!token) {
+      alert("Please login first to manage your wishlist!");
+      return;
+    }
     if (isInWishlist(product._id)) removeFromWishlist(product._id);
     else addToWishlist(product._id);
+  };
+
+  const handleAddToCart = (productId) => {
+    if (!token) {
+      alert("Please login first to add products to cart!");
+      return;
+    }
+    addToCart(productId);
+  };
+
+  const handleBuyNow = (productId) => {
+    if (!token) {
+      alert("Please login first to buy!");
+      navigate("/login");
+      return;
+    }
+    navigate(`/payment/${productId}`);
   };
 
   const isInCart = (productId) => cartItems.some(item => item.productId._id === productId);
@@ -61,12 +85,12 @@ function Search() {
               </Link>
 
               <div className="product-actions-searchpage">
-                <button className="cart-btn-searchpage" onClick={() => addToCart(product._id)}>
+                <button className="cart-btn-searchpage" onClick={() => handleAddToCart(product._id)}>
                   <MdAddShoppingCart /> {isInCart(product._id) ? "Added" : ""}
                 </button>
-                <Link to={`/payment/${product._id}`}>
-                  <button className="buy-btn-searchpage">Buy Now</button>
-                </Link>
+                <button className="buy-btn-searchpage" onClick={() => handleBuyNow(product._id)}>
+                  Buy Now
+                </button>
               </div>
             </div>
           </div>

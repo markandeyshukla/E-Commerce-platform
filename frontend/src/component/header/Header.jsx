@@ -32,6 +32,9 @@ function Header() {
     navigate("/login");
   }
 
+  const shopLink = user?.role === "seller" ? "/sellerdashboard" : "/sellersignup";
+  const shopText = user?.role === "seller" ? "Dashboard" : "Become A Seller";
+
   return (
     <>
       {/* Desktop / Large screens */}
@@ -42,7 +45,7 @@ function Header() {
           </Link>
 
           <span className='header-font-design'>
-            {user ? `Deliver to ${user.username}` : "Deliver to person name address"}
+            {user ? `Deliver to ${user.username}` : "Deliver In 7 Days"}
           </span>
 
           <div className='header-search'>
@@ -69,7 +72,7 @@ function Header() {
                 <ul className='display-div'>
                   <li><Link to='/wishlist'>Wishlist</Link></li>
                   {!user && <li><Link to='/login'>Login</Link></li>}
-                  {!user && <li><Link to='/phone'>Signup</Link></li>}
+                  {!user && <li><Link to='/signup'>Signup</Link></li>}
                   {user && <li style={{cursor:'pointer'}} onClick={handleLogout}>Logout</li>}
                   <li><Link to='/support'>Contact</Link></li>
                 </ul>
@@ -81,8 +84,9 @@ function Header() {
             <HiOutlineShoppingCart className='size-icon'/> <p className='text'>Cart</p>
           </Link>
 
-          <Link to='/sellersignup' className='header-font-design show-header-name'>
-            <FaShop className='size-icon'/> <p className='text'>Become A Seller</p>
+          {/* FaShop Link dynamic based on role */}
+          <Link to={shopLink} className='header-font-design show-header-name'>
+            <FaShop className='size-icon'/> <p className='text'>{shopText}</p>
           </Link>
         </div>
       </div>
@@ -118,7 +122,7 @@ function Header() {
                     <ul className='display-div'>
                       <li><Link to='/wishlist'>Wishlist</Link></li>
                       <li><Link to='/login'>Login</Link></li>
-                      <li><Link to='/phone'>Signup</Link></li>
+                      <li><Link to='/signup'>Signup</Link></li>
                       <li><Link to='/support'>Contact</Link></li>
                     </ul>
                   </div>
@@ -127,9 +131,11 @@ function Header() {
             )}
           </div>
 
-          <Link to='/sellersignup' className='header-font-design'>
+          {/* FaShop Link for mobile */}
+          <Link to={shopLink} className='header-font-design'>
             <FaShop className='size-icon' />
           </Link>
+
           <Link to='/cart' className='header-font-design'>
             <HiOutlineShoppingCart className='size-icon' />
           </Link>

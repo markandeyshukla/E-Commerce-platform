@@ -21,7 +21,7 @@ function Login() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/login", {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
@@ -32,15 +32,15 @@ function Login() {
       if(data.success){
         alert("Login successful");
 
-        // Save token & user info in localStorage
+        
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        // Role-based redirect
+        
         if(data.user.role === "seller"){
           navigate("/sellerdashboard");
         } else {
-          navigate("/"); // buyer or default
+          navigate("/"); 
         }
 
       } else {
@@ -93,19 +93,10 @@ function Login() {
           <div className="form-extra">
             <a href="/forgot-password" className="forgot-link">Forgot Password?</a>
             <p className="signup-text">
-              Don’t have an account? <a href="/phone">Sign Up</a>
+              Don’t have an account? <Link to='/signup'>Sign Up</Link>
             </p>
           </div>
-{/* 
-          <div className="google-login">
-            <button className="google-login-btn">
-              <img 
-                src="https://developers.google.com/identity/images/g-logo.png" 
-                alt="Google" 
-                className="google-icon" 
-              />
-              <span>Login with Google</span> 
-            </button> */}
+
             <p style={{ textAlign: "center", marginTop: "10px" }}>
   <Link to="/forgot-password">Forgot Password?</Link>
 </p>

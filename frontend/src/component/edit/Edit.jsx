@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./edit.css";
 
 function Edit() {
-  const { id } = useParams(); // product id from URL
+  const { id } = useParams(); 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -24,52 +24,54 @@ function Edit() {
   });
 
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // Fetch existing product data
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchProduct = async () => {
+      try {
+        const res = await fetch(`https://e-commerce-platform-5c4x.onrender.com/api/products/${id}`);
+        const data = await res.json();
         setFormData(data);
         setPreview(data.imgUrl);
-      })
-      .catch((err) => console.error(err));
+      } catch (err) {
+        console.error(err);
+        alert("❌ Failed to fetch product details");
+      }
+    };
+    fetchProduct();
   }, [id]);
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle image preview and base64 conversion
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setPreview(URL.createObjectURL(file));
-
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData((prev) => ({
-          ...prev,
-          imgUrl: reader.result,
-        }));
-      };
+      reader.onloadend = () => setFormData((prev) => ({ ...prev, imgUrl: reader.result }));
       reader.readAsDataURL(file);
     }
   };
 
-  // Handle PUT submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      alert("❌ You must be logged in to update a product!");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${id}`, {
+      const res = await fetch(`https://e-commerce-platform-5c4x.onrender.com/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -77,20 +79,22 @@ function Edit() {
       const data = await res.json();
       if (res.ok) {
         alert("✅ Product updated successfully!");
-        navigate("/sellerdashboard"); // redirect to dashboard
+        navigate("/sellerdashboard");
       } else {
-        alert("❌ Failed to update product!");
+        alert(data.message || "❌ Failed to update product!");
         console.error(data);
       }
     } catch (error) {
       console.error("Error updating product:", error);
+      alert("❌ Something went wrong!");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
       <h1 className="heading1">Edit Product</h1>
-
       <div className="upload-car-main">
         <form className="Upload-car-form" id="uploadcar" onSubmit={handleSubmit}>
           <img
@@ -101,97 +105,31 @@ function Edit() {
             width="200"
           />
 
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="brandName"
-            placeholder="Enter Brand Name"
-            value={formData.brandName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="productName"
-            placeholder="Enter Product Name"
-            value={formData.productName}
-            onChange={handleChange}
-            required
-          />
-          <input
-            className="upload-car-form-detail"
-            type="number"
-            name="price"
-            placeholder="Enter Price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="color"
-            placeholder="Available Color (comma separated)"
-            value={formData.color}
-            onChange={handleChange}
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="size"
-            placeholder="Available Size (optional)"
-            value={formData.size}
-            onChange={handleChange}
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="ages"
-            placeholder="Age Group (e.g. 11-17)"
-            value={formData.ages}
-            onChange={handleChange}
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="material"
-            placeholder="Material"
-            value={formData.material}
-            onChange={handleChange}
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="manufacturer"
-            placeholder="Manufacturer"
-            value={formData.manufacturer}
-            onChange={handleChange}
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="assemble"
-            placeholder="Product Assembly Info"
-            value={formData.assemble}
-            onChange={handleChange}
-          />
-          <input
-            className="upload-car-form-detail"
-            type="text"
-            name="warranty"
-            placeholder="Warranty (e.g. 1 Year)"
-            value={formData.warranty}
-            onChange={handleChange}
-          />
-          <input
-            className="upload-car-form-detail"
-            type="number"
-            name="returnDays"
-            placeholder="Returnable Days"
-            value={formData.returnDays}
-            onChange={handleChange}
-          />
+          {[
+            { name: "brandName", placeholder: "Enter Brand Name", type: "text", required: true },
+            { name: "productName", placeholder: "Enter Product Name", type: "text", required: true },
+            { name: "price", placeholder: "Enter Price", type: "number", required: true },
+            { name: "color", placeholder: "Available Color (comma separated)", type: "text" },
+            { name: "size", placeholder: "Available Size (optional)", type: "text" },
+            { name: "ages", placeholder: "Age Group (e.g. 11-17)", type: "text" },
+            { name: "material", placeholder: "Material", type: "text" },
+            { name: "manufacturer", placeholder: "Manufacturer", type: "text" },
+            { name: "assemble", placeholder: "Product Assembly Info", type: "text" },
+            { name: "warranty", placeholder: "Warranty (e.g. 1 Year)", type: "text" },
+            { name: "returnDays", placeholder: "Returnable Days", type: "number" },
+          ].map((input) => (
+            <input
+              key={input.name}
+              className="upload-car-form-detail"
+              type={input.type}
+              name={input.name}
+              placeholder={input.placeholder}
+              value={formData[input.name]}
+              onChange={handleChange}
+              required={input.required || false}
+            />
+          ))}
+
           <textarea
             className="upload-car-form-detail"
             name="description"
@@ -208,6 +146,7 @@ function Edit() {
             onChange={handleChange}
             required
           />
+
           <label htmlFor="imgUploadInput" className="upload-btn">
             Upload Product Image
           </label>
@@ -221,7 +160,8 @@ function Edit() {
           <input
             className="upload-car-form-detail-btn"
             type="submit"
-            value="Update Product"
+            value={loading ? "Updating..." : "Update Product"}
+            disabled={loading}
           />
         </form>
       </div>

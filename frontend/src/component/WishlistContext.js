@@ -3,16 +3,28 @@ import { createContext, useState, useEffect } from "react";
 export const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const [wishlistItems, setWishlistItems] = useState([]); // full product objects
+  const [wishlistItems, setWishlistItems] = useState([]); 
 
-  // ✅ Fetch wishlist from backend
+  
   useEffect(() => {
     const fetchWishlist = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/wishlist");
+        const token = localStorage.getItem("token");
+        if (!token) return; 
+
+        const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/wishlist", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          console.error("Unauthorized or error fetching wishlist");
+          return;
+        }
+
         const data = await res.json();
-        // backend returns [{_id, productId: {...}}]
-        setWishlistItems(data); // full objects now
+        setWishlistItems(data); 
       } catch (err) {
         console.error("Fetch wishlist error:", err);
       }
@@ -20,28 +32,41 @@ export const WishlistProvider = ({ children }) => {
     fetchWishlist();
   }, []);
 
-  // ✅ Add to wishlist
+
   const addToWishlist = async (productId) => {
     try {
-      const res = await fetch("http://localhost:5000/api/wishlist", {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/wishlist", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
         body: JSON.stringify({ productId }),
       });
+
       const data = await res.json();
       if (res.ok) {
-        setWishlistItems(prev => [...prev, data]); // push full object
+        setWishlistItems(prev => [...prev, data]); 
       }
     } catch (err) {
       console.error("Add wishlist error:", err);
     }
   };
 
-  // ✅ Remove from wishlist (by productId)
+  
   const removeFromWishlist = async (productId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/wishlist/${productId}`, {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+
+      const res = await fetch(`https://e-commerce-platform-5c4x.onrender.com/api/wishlist/${productId}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
       });
       if (res.ok) {
         setWishlistItems(prev => prev.filter(item => item.productId._id !== productId));
@@ -51,7 +76,6 @@ export const WishlistProvider = ({ children }) => {
     }
   };
 
-  // ✅ Check if product is in wishlist safely
   const isInWishlist = (productId) =>
     Array.isArray(wishlistItems) && wishlistItems.some(item => item.productId?._id === productId);
 

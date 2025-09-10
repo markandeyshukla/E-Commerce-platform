@@ -39,6 +39,7 @@ margin: 0 auto;
     width: 177px;
 }
 .input-support-btn{
+    cursor: pointer;
     border: none;
 width: 250px;
 height: 20px;

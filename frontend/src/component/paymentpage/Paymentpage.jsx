@@ -24,10 +24,9 @@ function PaymentPage() {
   });
   const navigate = useNavigate();
 
-  // Fetch product if coming from detail page
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:5000/api/payment/${id}`)
+      fetch(`https://e-commerce-platform-5c4x.onrender.com/api/payment/${id}`)
         .then(res => res.json())
         .then(data => setProduct(data))
         .catch(err => console.error(err));
@@ -44,7 +43,6 @@ function PaymentPage() {
     setStep(2);
   };
 
-  // Determine items to pay: single product or cart items
   const itemsToPay = id
     ? product ? [{ ...product, quantity: 1 }] : []
     : cartItems.map(item => ({ ...item.productId, quantity: item.quantity }));
@@ -52,10 +50,8 @@ function PaymentPage() {
   const totalAmount = itemsToPay.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const upiLink = `upi://pay?pa=merchant@upi&pn=ViaMart&am=${totalAmount}&cu=INR`;
 
-  // Confirm Payment
   const handleConfirmPayment = async () => {
     try {
-      // Prepare orders array for backend
       const ordersToSend = itemsToPay.map(item => ({
         productId: item._id || item.productId,
         productName: item.productName,
@@ -73,9 +69,8 @@ function PaymentPage() {
         payerName: formData.payerName
       }));
 
-      // Send each order to backend
       for (const order of ordersToSend) {
-        const res = await fetch("http://localhost:5000/api/payment", {
+        const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/payment", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(order)
@@ -83,9 +78,9 @@ function PaymentPage() {
         if (!res.ok) throw new Error("Order creation failed");
       }
 
-      alert("Order Confirmed! Payment Successful."); // Notification
-      if (setCartItems) setCartItems([]); // clear cart
-      navigate("/"); // redirect to home
+      alert("Order Confirmed! Payment Successful.");
+      if (setCartItems) setCartItems([]); 
+      navigate("/"); 
     } catch (err) {
       console.error("Order placement error:", err);
       alert("Error placing order.");
@@ -154,5 +149,3 @@ function PaymentPage() {
 }
 
 export default PaymentPage;
-// payment page pe screenshot upload or login signup or signup as seller forgot password change password 
-// iske baad frontend mein require or token lgana hai taki user login kre bina buy na kre wishlist ko middlewre dena hai cart ko bhi.
