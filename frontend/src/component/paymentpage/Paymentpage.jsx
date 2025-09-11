@@ -48,7 +48,9 @@ function PaymentPage() {
     : cartItems.map(item => ({ ...item.productId, quantity: item.quantity }));
 
   const totalAmount = itemsToPay.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const upiLink = `upi://pay?pa=merchant@upi&pn=ViaMart&am=${totalAmount}&cu=INR`;
+  const upiLink = `upi://pay?pa=btw.its.markandey@okaxis&pn=ViaMart&am=${totalAmount}&cu=INR`;
+
+
 
   const handleConfirmPayment = async () => {
     try {
