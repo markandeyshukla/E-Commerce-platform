@@ -118,7 +118,7 @@ function Support() {
             </p>
           )}
 
-          <div><Link to='/msgbox'>Chat With US!</Link></div>
+          {/* <div><Link to='/msgbox'>Chat With US!</Link></div> */}
         </form>
       </div>
     </div>
