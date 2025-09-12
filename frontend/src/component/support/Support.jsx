@@ -43,7 +43,7 @@ function Support() {
         data.append("screenshot", formData.screenshot);
       }
 
-      const res = await fetch("http://localhost:5000/api/support", {
+      const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/support", {
         method: "POST",
         body: data
       });

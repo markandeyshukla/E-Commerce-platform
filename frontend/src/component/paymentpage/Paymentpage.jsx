@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { QRCodeSVG } from "qrcode.react";
 import { CartContext } from "../../component/CartContext";
+import { Link } from "react-router-dom";
 import './paymentpage.css';
 
 function PaymentPage() {
@@ -98,7 +99,7 @@ function PaymentPage() {
           <div className='product-summary-payment'>
             {itemsToPay.map(item => (
               <div key={item._id || item.productId}>
-                <img src={item.imgUrl} alt={item.productName} className='payment-img-product' />
+                <Link to={`/detail/${item._id}`}><img src={item.imgUrl} alt={item.productName} className='payment-img-product' /></Link>
                 <h1 className='payment-product-name'>{item.productName}</h1>
                 <p className='payment-product-price'>
                   ₹{item.price} x {item.quantity} = ₹{item.price * item.quantity}

@@ -11,7 +11,7 @@ function Wishlist() {
     const fetchWishlist = async () => {
       try {
         const token = localStorage.getItem("token"); // fetch token
-        const res = await fetch("http://localhost:5000/api/wishlist", {
+        const res = await fetch("https://e-commerce-platform-5c4x.onrender.com/api/wishlist", {
           headers: {
             "Authorization": `Bearer ${token}`,
           },
