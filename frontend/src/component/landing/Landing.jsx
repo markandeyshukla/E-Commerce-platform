@@ -4,6 +4,7 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { WishlistContext } from "../../component/WishlistContext";
 import { CartContext } from "../../component/CartContext";
+import { Link } from "react-router-dom";
 import "./landing.css";
 
 function Landing() {
@@ -60,7 +61,7 @@ function Landing() {
       {products.map((product) => (
         <div key={product._id} className="product-card-landing">
           <div className="product-img-wrapper-landing">
-            <img src={product.imgUrl} alt={product.productName} className="product-img-landing" />
+            <Link to={`/payment/${product._Id}`}><img src={product.imgUrl} alt={product.productName} className="product-img-landing" /></Link>
             <span className="wishlist-icon-landing" onClick={() => handleWishlist(product)}>
               {isInWishlist(product._id) ? (
                 <IoHeartSharp className="heart-filled-landing" />
