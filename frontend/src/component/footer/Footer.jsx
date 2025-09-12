@@ -13,7 +13,7 @@ function Footer() {
                 <div className='footer-conrtaindiv'>
                 <div className="contact-detail">
                     <p className="contact-details">Contact</p>
-                    <p className='tast'><TbBrandGmail className="image"/>email@gmail.com</p>
+                    <p className='tast'><TbBrandGmail className="image"/>viamart@gmail.com</p>
                     <p className='tast'><FaPhoneVolume className='image' />0542-4595674</p>
                 <div className='footer-social'>
                 <p><BsInstagram  className="footer-socials" /></p>
